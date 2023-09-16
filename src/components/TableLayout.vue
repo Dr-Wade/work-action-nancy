@@ -19,10 +19,14 @@
                     <BccBadge :context="item.gender == 'Male' ? 'info' : 'danger'">{{ item.gender }}</BccBadge>
                 </template>
                 <template #item.team="{ item }">
-                    <BccSelect v-model="item.team">
+                    <BccSelect v-if="item.personID" :value="item.team" @update:model-value="(team) => handleTeamUpdate(item as Member, team)">
                         <option disabled value="">Select a team...</option>
                         <option v-for="team in names" :value="team" :key="team">{{team}}</option>
                     </BccSelect>
+                    <BccBadge v-else :context="contexts[item.team as Team]">{{ capitalize(item.team) }}</BccBadge>
+                </template>
+                <template #item.delete-action="{ item }">
+                    <BccButton context="danger" @click="emit('delete', item)">Delete</BccButton>
                 </template>
             </BccTable>
             <Pagination class="pagination flex justify-between p-3 bg-neptune-300 items-end" v-model="currentPage" :total-items="filteredItems.length" :perPage="PAGING_SIZE" :layout="'table'" />
@@ -32,12 +36,14 @@
 </template>
 <script setup lang="ts" generic="T">
 import { Pagination } from 'flowbite-vue'
-import { BccInput, BccTable, BccBadge, BccSelect } from '@bcc-code/design-library-vue'
-import { useSearch } from '@/composables/search'
+import { BccInput, BccTable, BccBadge, BccSelect, BccButton } from '@bcc-code/design-library-vue'
+import { useSearch } from '@/composables/useSearch'
 import { SearchIcon } from '@bcc-code/icons-vue'
 import { ref, toRef } from 'vue'
-import { usePagination } from '@/composables/pagination'
-import { useTeams } from '@/composables/teams'
+import { usePagination } from '@/composables/usePagination'
+import { useTeams, type Team } from '@/composables/useTeams'
+import { useMembers, type Member } from '@/store/members'
+import { useFormat } from '@/composables/useFormat'
 
 type Column = {
     key: string
@@ -54,13 +60,18 @@ const props = defineProps<{
     pageSize?: number
 }>()
 
+const emit = defineEmits(['delete'])
+
 const items = toRef(props, 'items')
 const { searchQuery, filteredItems } = useSearch(items, props.searchFields as string[])
 const { pagedItems, PAGING_SIZE, currentPage } = usePagination(filteredItems, props.pageSize)
 const sortBy = ref()
 const sortDirection = ref()
 
-const {names} = useTeams()
+const { contexts, names} = useTeams()
+const handleTeamUpdate = (item: Member, t: Team) => useMembers().setTeam(item.personID, t)
+
+const { capitalize } = useFormat()
 </script>
 <style>
 .bcc-table-header-row {
@@ -71,4 +82,4 @@ const {names} = useTeams()
     @apply !text-gray-800;
     @apply !border-neptune-500;
 }
-</style>
+</style>@/composables/useSearch@/composables/useTeams

@@ -1,6 +1,6 @@
 <template>
     <section class="flex flex-col gap-y-5 lg:px-4">
-        <Navbar solid :rounded="width >= 768" class="md:mt-2 w-full max-w-3xl mx-auto bg-neptune-600 text-primary">
+        <Navbar ref="navbar" solid :rounded="width >= 768" class="md:mt-2 w-full max-w-3xl mx-auto bg-neptune-600 text-primary">
             <template #logo>
                 <NavbarLogo link="/" alt="Work Logo" image-url="/img/logo.svg" />
             </template>
@@ -22,6 +22,7 @@
 import { Navbar, NavbarLogo, NavbarCollapse } from 'flowbite-vue'
 import { useRoute } from 'vue-router'
 import { useWindowSize } from '@vueuse/core'
+import { ref, watch } from 'vue';
 
 const { width } = useWindowSize()
 const items = [
@@ -29,11 +30,12 @@ const items = [
     { link: '/teams', name: 'Teams' },
     { link: '/activities', name: 'Activities' },
     { link: '/registrations', name: 'Registrations' },
-    { link: '/bonuses', name: 'Bonuses' },
-    { link: '/overlay', name: 'Overlay' },
+    { link: '/bonuses', name: 'Bonuses' }
 ]
 
+const navbar = ref()
 const route = useRoute()
+watch(() => route.name, () => navbar.value.isShowMenuOnMobile = false)
 </script>
 <style>
 nav button[aria-controls="navbar-default"] {

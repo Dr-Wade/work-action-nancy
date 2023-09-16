@@ -1,28 +1,31 @@
 <template>
-    <div class="flex flex-row justify-between items-center">
-        <h3 class="font-bold">Activities</h3>
-        <BccButton class="self-end" :icon="DownloadIcon" @click="showModal = true">Import</BccButton>
-    </div>
-    <TableLayout v-bind="{ columns, searchFields, pageSize, items: activities.list }"  />
-    <BccModal title="Import activities" :open="showModal" @close="showModal = false">
-        <div class="mb-3">
-            <BccInput disabled :value="file ? file.name : 'No file selected'"/>
-            <BccButton @click="triggerFileClick">Browse</BccButton>
-            <input class="hidden" ref="fileRef" type="file" accept="text/csv" @change="(e: any) => file = e.target!.files[0]">
+    <section>
+        <div class="flex flex-row justify-between items-center">
+            <h3 class="font-bold">Activities</h3>
+            <BccButton class="self-end" :icon="DownloadIcon" @click="showModal = true">Import</BccButton>
         </div>
-        <BccTable v-if="parsedActivities && parsedActivities.length" :columns="columns" :items="parsedActivities" />
-        <template #secondaryAction>
-            <BccButton variant="secondary" @click="parsedActivities = [], showModal = false">Cancel</BccButton>
-        </template>
-        <template #primaryAction>
-            <BccButton @click="importActivities">Confirm</BccButton>
-        </template>
-    </BccModal>
+        <TableLayout v-bind="{ columns, searchFields, pageSize, items: activities.list }"  />
+        <BccModal title="Import activities" :open="showModal" @close="showModal = false">
+            <div class="mb-3">
+                <BccInput disabled :value="file ? file.name : 'No file selected'"/>
+                <BccButton @click="triggerFileClick">Browse</BccButton>
+                <input class="hidden" ref="fileRef" type="file" accept="text/csv" @change="(e: any) => file = e.target!.files[0]">
+            </div>
+            <BccTable v-if="parsedActivities && parsedActivities.length" :columns="columns" :items="parsedActivities" />
+            <template #secondaryAction>
+                <BccButton variant="secondary" @click="parsedActivities = [], showModal = false">Cancel</BccButton>
+            </template>
+            <template #primaryAction>
+                <BccButton @click="importActivities">Confirm</BccButton>
+            </template>
+        </BccModal>
+    </section>
 </template>
 
 <script setup lang="ts">
 import TableLayout from '@/components/TableLayout.vue'
 import { useActivities, type Activity } from '@/store/activities'
+import { useImports } from '@/store/imports'
 import { BccButton, BccInput, BccModal, BccTable } from '@bcc-code/design-library-vue'
 import { DownloadIcon } from '@bcc-code/icons-vue'
 import { ref, watch } from 'vue'
@@ -88,9 +91,11 @@ const calculatePoints = (startDay: string, endDay: string, start: string, end: s
     return (endHour - startHour) > 4 ? 1 : 0.5
 }
 
+const imports = useImports()
 const importActivities = async () => {
     if (!parsedActivities.value) return
     await Promise.all(parsedActivities.value.map(activities.set)).then(() => {
+        imports.add({ type: 'activities' })
         showModal.value = false
     })
 }

@@ -13,7 +13,7 @@
     </BccModal>
 </template>
 <script setup lang="ts">
-import { useServiceAccount } from '@/composables/serviceAccount'
+import { useServiceAccount } from '@/composables/useServiceAccount'
 import { BccModal, BccButton, BccInput } from '@bcc-code/design-library-vue'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { ref, watch } from 'vue'

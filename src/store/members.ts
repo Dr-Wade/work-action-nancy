@@ -2,9 +2,10 @@ import { useCollection } from "vuefire"
 import { collection, doc, getFirestore, updateDoc } from 'firebase/firestore'
 import { computed } from "vue"
 import { defineStore } from "pinia"
-import type { Team } from "@/composables/teams"
+import type { Team } from "@/composables/useTeams"
 
 export interface Member {
+    id?: string
     personID: string
     name: string
     age: number

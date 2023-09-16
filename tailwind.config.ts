@@ -11,10 +11,9 @@ module.exports = {
         'node_modules/@bcc-code/design-library-vue/dist/design-library-vue.js'
     ],
     safelist: [
-        'bg-red-500',
-        'bg-blue-500',
-        'bg-green-500',
-        'bg-orange-500'
+        { pattern: /bg-(red|blue|green|orange)-500/ },
+        { pattern: /shadow-(red|blue|green|orange)-[1-9]00/ },
+        { pattern: /border-(red|blue|green|orange)-[1-9]00/ }
     ],
     presets: [ themes.bccForbundetTheme ],
     plugins: [ themes.tailwindPlugin, flowbite],

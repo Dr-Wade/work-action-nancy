@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "bun vite",
+    "build": "bun vite build",
     "scripts": "tsc scripts/src/* --outDir scripts/dist --esModuleInterop",
     "script": "node scripts/dist/"
   },
@@ -35,7 +35,7 @@
     "typescript": "~5.2.2",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.9",
-    "vite-plugin-windicss": "^1.9.1",
+    "vite-plugin-pwa": "^0.16.5",
     "vue-tsc": "^1.8.10"
   }
 }

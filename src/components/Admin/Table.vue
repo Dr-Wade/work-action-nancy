@@ -104,4 +104,4 @@ defineExpose({ exportToCsv })
 	@apply relative inline-flex items-center text-sm font-medium bg-tiber-700 text-white px-4 py-2 border border-tiber-500;
 }
 
-</style>
+</style>@/composables/useSearch
