@@ -5,7 +5,7 @@
             <span class="absolute inset-x-0 bottom-0 text-xxs text-gray-300">{{ list && list.length || 0 }} members</span>
         </h3>
         <ul class="divide-y divide-gray-400">
-            <li v-for="member in list"
+            <li v-for="member in orderedList"
                 :key="member.personID"
                 @contextmenu.prevent="(e) => onContextMenu(e, member)"
                 class="py-1 flex justify-between cursor-pointer no-select">
@@ -34,6 +34,7 @@ const props = defineProps<{ team: Team }>()
 
 const { teams, names } = useTeams()
 const list = computed(() => teams.value[props.team])
+const orderedList = computed(() => list.value?.sort((a,b) => a.age - b.age))
 const members = useMembers()
 const selectedMember = ref<Member>()
 const show = ref(false)

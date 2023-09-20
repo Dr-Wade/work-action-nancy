@@ -27,4 +27,4 @@ const items = computed(() => members.list.filter((m) => !m.team))
 const title = 'Unassigned members'
 const pageSize = 500
 const { names } = useTeams()
-</script>@/composables/useTeams
+</script>

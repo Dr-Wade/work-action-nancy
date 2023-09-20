@@ -17,4 +17,6 @@ app.use(router)
 app.use(timeago)
 app.use(ContextMenu)
 
-app.mount('#app')
+router.isReady().then(() => {
+    app.mount('#app')
+})

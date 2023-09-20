@@ -36,6 +36,7 @@ const isOverlay = computed(() => route.path.startsWith('/overlay'))
 const { serviceAccountEmail } = useServiceAccount()
 
 const loaded = ref(false)
+
 onMounted(async () => {
     if (route.query.pass) await signInWithEmailAndPassword(auth, serviceAccountEmail, route.query.pass.toString()).then(() => loaded.value = true)
     else await auth.authStateReady().then(() => loaded.value = true) 

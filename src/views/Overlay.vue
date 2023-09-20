@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { useTeams, type Team } from '@/composables/useTeams'
 import { usePoints } from '@/composables/usePoints'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 const { names } = useTeams()
 const { pointsPerTeam } = usePoints()
@@ -26,7 +26,6 @@ const minPoints = computed(() => names.reduce((acc: number, c) => Math.min(acc, 
 const width = (team: Team) => 25 + 50 * (pointsPerTeam.value[team] - minPoints.value)/(maxPoints.value - minPoints.value)
 
 const rankedTeams = computed(() => names.sort((a,b) => pointsPerTeam.value[b] - pointsPerTeam.value[a]))
-watch(rankedTeams, () => console.log(rankedTeams.value), { immediate: true })
 
 const loaded = ref(false)
 setTimeout(() => loaded.value = true, 1000)
