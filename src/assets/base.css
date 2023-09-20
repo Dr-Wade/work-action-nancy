@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    -webkit-print-color-adjust: exact !important;
+}
+
 .scrollbar::-webkit-scrollbar {
     width: 6px;
     cursor: pointer;

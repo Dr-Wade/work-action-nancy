@@ -11,7 +11,7 @@ module.exports = {
         'node_modules/@bcc-code/design-library-vue/dist/design-library-vue.js'
     ],
     safelist: [
-        { pattern: /bg-(red|blue|green|orange)-500/ },
+        { pattern: /bg-(red|blue|green|orange)-(2|[1-9]00)/ },
         { pattern: /shadow-(red|blue|green|orange)-[1-9]00/ },
         { pattern: /border-(red|blue|green|orange)-[1-9]00/ }
     ],
@@ -35,7 +35,11 @@ module.exports = {
                     700: '#10415E',
                     800: '#0A293B',
                     900: '#02080B'
-                  },
+                },
+                'red-2': '#5b0600',
+                'blue-2': '#010137',
+                'orange-2': '#985b08',
+                'green-2': '#14442d'
             }
         },
         

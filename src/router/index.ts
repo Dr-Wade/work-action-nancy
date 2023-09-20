@@ -5,6 +5,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/overlay', name: 'overlay', component: () => import('../views/Overlay.vue') },
+    { path: '/overlay/team/:team', name: 'team', component: () => import('../views/TeamOverlay.vue') },
     { path: '/', component: Layout, children: [
       { path: '/', name: 'home', component: () => import('../views/Home.vue') },
       { path: '/teams', name: 'teams', component: () => import('../views/Teams.vue') },

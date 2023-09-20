@@ -17,6 +17,9 @@ dependencies:
   '@vueuse/firebase':
     specifier: ^10.4.1
     version: 10.4.1(firebase@10.3.1)(vue@3.3.4)
+  '@vueuse/router':
+    specifier: ^10.4.1
+    version: 10.4.1(vue-router@4.2.4)(vue@3.3.4)
   firebase:
     specifier: ^10.3.1
     version: 10.3.1
@@ -2371,6 +2374,19 @@ packages:
 
   /@vueuse/metadata@9.3.0:
     resolution: {integrity: sha512-GnnfjbzIPJIh9ngL9s9oGU1+Hx/h5/KFqTfJykzh/1xjaHkedV9g0MASpdmPZIP+ynNhKAcEfA6g5i8KXwtoMA==}
+    dev: false
+
+  /@vueuse/router@10.4.1(vue-router@4.2.4)(vue@3.3.4):
+    resolution: {integrity: sha512-gsMuSIDTUj7Gt91pnFbrhUCDaGObceQAs3+XGguRNj/WgzqLpywe37mE4645McDspEbig/n9nvn8SSmo6XRvPw==}
+    peerDependencies:
+      vue-router: '>=4.0.0-rc.1'
+    dependencies:
+      '@vueuse/shared': 10.4.1(vue@3.3.4)
+      vue-demi: 0.14.6(vue@3.3.4)
+      vue-router: 4.2.4(vue@3.3.4)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
     dev: false
 
   /@vueuse/shared@10.4.1(vue@3.3.4):
