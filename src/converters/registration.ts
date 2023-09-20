@@ -9,7 +9,6 @@ const RegistrationConverter: FirestoreDataConverter<Registration> = {
         return firestoreDefaultConverter.fromFirestore(snapshot) as Registration
     },
     toFirestore: (registration: Registration) => {
-        console.log('Convert to firestore')
         const activities = useActivities()
         const members = useMembers()
         const activity = doc(activities.ref, registration.activity.id)

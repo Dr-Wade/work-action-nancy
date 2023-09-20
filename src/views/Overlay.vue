@@ -9,6 +9,7 @@
                     :class="[`bg-${team}-500`, `shadow-${team}-600`, `border-${team}-400`]"
                     :style="{ width: width(team) + '%' }"></div>
                 <span class="font-bold text-4xl drop-shadow-md shadow-white">{{ pointsPerTeam[team] }}</span>
+                <img class="w-16 -rotate-45" src="/img/hammer.png">
             </div>
         </TransitionGroup>
     </div>
