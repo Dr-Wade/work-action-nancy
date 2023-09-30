@@ -17,7 +17,7 @@
                     <span class="text-gray-500">{{ ignoredRegistrations.length }} ignored</span>
                 </div>
                 <h3 class="text-lg font-bold my-2">Parsed</h3>
-                <BccTable :columns="columns" :items="parsedRegistrations!" />
+                <BccTable :columns="columns.filter((el) => el.text!='Import')" :items="parsedRegistrations!" />
                 <h3 class="text-lg font-bold my-2">Ignored</h3>
                 <BccTable class="mt-2" :columns="ignoredColumns" :items="ignoredRegistrations!" />
             </template>
@@ -35,11 +35,12 @@
 import TableLayout from '@/components/TableLayout.vue'
 import { useCsv } from '@/composables/useCsv'
 import { useActivities } from '@/store/activities'
-import { useImports } from '@/store/imports'
+import { useImports, type Import } from '@/store/imports'
 import { useMembers } from '@/store/members'
 import { useRegistrations, type Registration } from '@/store/registrations'
 import { BccButton, BccInput, BccModal, BccTable } from '@bcc-code/design-library-vue'
 import { DownloadIcon } from '@bcc-code/icons-vue'
+import { Timestamp } from 'firebase/firestore'
 import { computed, ref, watch } from 'vue'
 
 const fileRef = ref<HTMLElement>()
@@ -54,7 +55,8 @@ const imports = useImports()
 const columns = [
     { key: 'member.name', text: 'Member', sortable: false },
     { key: 'activity.id', text: 'Activity', sortable: false },
-    { key: 'activity.points', text: 'Points' }
+    { key: 'activity.points', text: 'Points' },
+    { key: 'import.imported_at', text: 'Import', sortable: false }
 ]
 
 const ignoredColumns = [
@@ -79,10 +81,12 @@ const reset = () => {
 
 const importRegistrations = async () => {
     if (!parsedRegistrations.value) return
-    await Promise.all(parsedRegistrations.value.map(registrations.set)).then(() => {
-        imports.add({ type: 'registrations' })
-        reset()
-    })
+    const importData: Import = { type: 'registrations', imported_at: Timestamp.now() }
+    importData.id = (await imports.add(importData)).id
+    await Promise.all(parsedRegistrations.value.map((r) => registrations.set({
+        ...r,
+        import: importData
+    }))).then(reset)
 }
 
 const { file2string, csvToArray} = useCsv()

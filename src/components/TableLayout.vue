@@ -25,6 +25,9 @@
                     </BccSelect>
                     <BccBadge v-else :context="contexts[item.team as Team]">{{ capitalize(item.team) }}</BccBadge>
                 </template>
+                <template #item.import.imported_at="{ item }">
+                    {{ item.import && item.import.imported_at ? date(item.import.imported_at): '' }}
+                </template>
                 <template #item.delete-action="{ item }">
                     <BccButton context="danger" @click="emit('delete', item)">Delete</BccButton>
                 </template>
@@ -71,7 +74,7 @@ const sortDirection = ref()
 const { contexts, names} = useTeams()
 const handleTeamUpdate = (item: Member, t: Team) => useMembers().setTeam(item.personID, t)
 
-const { capitalize } = useFormat()
+const { capitalize, date } = useFormat()
 </script>
 <style>
 .bcc-table-header-row {

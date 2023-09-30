@@ -21,6 +21,7 @@ import { computed, ref } from 'vue'
 
 const { names } = useTeams()
 const { pointsPerTeam } = usePoints()
+
 const maxPoints = computed(() => names.reduce((acc: number, c) => Math.max(acc, pointsPerTeam.value[c]), 0))
 const minPoints = computed(() => names.reduce((acc: number, c) => Math.min(acc, pointsPerTeam.value[c]), Infinity))
 

@@ -17,15 +17,15 @@
     
 </template>
 <script setup lang="ts">
-import { useTeams } from '@/composables/useTeams'
+import { useTeams, type Team } from '@/composables/useTeams'
 import { useRouteParams } from '@vueuse/router'
 import { computed } from 'vue'
 
 const team = useRouteParams('team')
 
 const { teams } = useTeams()
-const list = computed(() => teams.value[team.value])
-const orderedList = computed(() => list.value?.sort((a,b) => a.name.localeCompare(b.name)))
+const list = computed(() => teams.value[team.value as Team])
+const orderedList = computed(() => list.value!.sort((a,b) => a.name.localeCompare(b.name)))
 const half = computed(() => Math.ceil(orderedList.value.length / 2))
 const firstColumn = computed(() => orderedList.value.slice(0, half.value))
 const secondColumn = computed(() => orderedList.value.slice(half.value))

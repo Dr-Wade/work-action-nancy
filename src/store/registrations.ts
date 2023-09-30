@@ -1,15 +1,17 @@
 import { useCollection } from "vuefire"
-import { addDoc, collection, deleteDoc, doc, getFirestore, setDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getFirestore, setDoc } from 'firebase/firestore'
 import { computed } from "vue"
 import { defineStore } from "pinia"
 import RegistrationConverter from "@/converters/registration"
 import type { Activity } from "./activities"
 import type { Member } from "./members"
+import type { Import } from "./imports"
 
 export interface Registration {
     id: string
     member: Member
     activity: Activity
+    import?: Import
 }
 
 export const useRegistrations = defineStore('registrations', () => {

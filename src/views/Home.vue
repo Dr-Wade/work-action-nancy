@@ -20,16 +20,29 @@
         <div class="card">
             <span>Last registration import</span>
             <span class="font-bold">{{ imports.lastRegistrationImport
-                ? formatTimestamp(imports.lastRegistrationImport.imported_at!)
+                ? date(imports.lastRegistrationImport.imported_at!)
                 : 'Never'
             }}</span>
         </div>
         <div class="card">
             <span>Last activity import</span>
             <span class="font-bold">{{ imports.lastActivityImport
-                ? formatTimestamp(imports.lastActivityImport.imported_at!)
+                ? date(imports.lastActivityImport.imported_at!)
                 : 'Never'
             }}</span>
+        </div>
+        <div class="card">
+            <span>Shown on overlay</span>
+            <span class="font-bold">{{ overlay.data && overlay.data.import
+                //@ts-ignore
+                ? date(overlay.data.import.imported_at!)
+                : 'None'
+            }}</span>
+            <div class="grid grid-cols-2 gap-2">
+                <BccButton :disabled="!canGoPrevious" @click="goPrevious">Previous</BccButton>
+                <BccButton :disabled="!canGoNext" @click="goNext">Next</BccButton>
+            </div>
+            
         </div>
     </section>
 </template>
@@ -37,23 +50,35 @@
 <script setup lang="ts">
 import { usePoints } from '@/composables/usePoints'
 import { useTeams } from '@/composables/useTeams'
-import { useImports } from '@/store/imports';
-import type { Timestamp } from 'firebase/firestore';
+import { useImports } from '@/store/imports'
+import { useFormat } from '@/composables/useFormat'
+import { useOverlay } from '@/store/overlay'
+import { BccButton } from '@bcc-code/design-library-vue'
+import { computed } from 'vue'
 
+const { date } = useFormat()
 const { names } = useTeams()
 const { pointsPerTeam, pointsFromBonuses, pointsFromRegistrations } = usePoints()
 const imports = useImports()
-const dateFormat = new Intl.DateTimeFormat('en-GB', {
-    year: "numeric",
-    month: "long",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
+const overlay = useOverlay()
+
+const importIndex = computed(() => {
+    if (!overlay.data) return -1
+    else return imports.registrations.findIndex((i) => i.id == overlay.data!.import.id)
 })
 
-const formatTimestamp = (t: Timestamp) => dateFormat.format(t.toDate())
+const canGoPrevious = computed(() => {
+    if (imports.registrations.length == 0) return false
+    return importIndex.value < imports.registrations.length - 1
+})
+
+const canGoNext = computed(() => {
+    if (imports.registrations.length == 0) return false
+    return importIndex.value > 0
+})
+
+const goPrevious = () => overlay.set({ import: imports.registrations.at(importIndex.value + 1)! })
+const goNext = () => overlay.set({ import: imports.registrations.at(importIndex.value - 1)! })
 </script>
 <style scoped>
 .card {
