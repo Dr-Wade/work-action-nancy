@@ -3,7 +3,7 @@
         <Navbar ref="navbar" solid :rounded="width >= 768" class="md:mt-2 w-full max-w-3xl mx-auto bg-neptune-600 text-primary">
             <template #logo>
                 <NavbarLogo link="/" alt="Work Logo" image-url="/img/logo.svg" class="relative">
-                    <span class="absolute md:left-6 left-2 -bottom-3 text-white text-xs">v1.2</span>
+                    <span class="absolute md:left-6 left-2 -bottom-3 text-white text-xs">v1.3</span>
                 </NavbarLogo>
             </template>
             <template #default=" {isShowMenu }">
