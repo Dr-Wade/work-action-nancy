@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-row justify-between items-center mb-2">
             <h3 class="font-bold">Activities</h3>
             <BccButton class="self-end" :icon="DownloadIcon" @click="showModal = true">Import</BccButton>
         </div>

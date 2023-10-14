@@ -7,6 +7,7 @@
         <TableLayout v-bind="{ columns, searchFields, pageSize, items: bonuses.list }" @delete="handleDeleteEmitted" />
         <BccModal title="New bonus" :open="showModal" @close="showModal = false">
             <div class="grid grid-cols-2 gap-2">
+                <BccInput :value="String(bonus.round)" disabled label="Round" class="col-span-full" />
                 <BccSelect v-model="bonus.team" label="Team">
                     <option disabled value="">Select a team...</option>
                     <option v-for="team in names" :value="team" :key="team">{{team}}</option>
@@ -37,14 +38,18 @@
 import TableLayout from '@/components/TableLayout.vue'
 import { useTeams } from '@/composables/useTeams'
 import { type Bonus, useBonuses } from '@/store/bonuses'
+import { useConfig } from '@/store/config'
 import { BccButton, BccInput, BccModal, BccSelect } from '@bcc-code/design-library-vue'
 import { AddIcon } from '@bcc-code/icons-vue'
-import {  ref } from 'vue'
+import {  ref, watch } from 'vue'
 
 const { names } = useTeams()
 const bonuses = useBonuses()
-const initialBonus: Bonus = { team: 'blue', points: '0', description: '' }
+const config = useConfig()
+const initialBonus: Bonus = { team: 'blue', points: '0', description: '', round: 0 }
 const bonus = ref<Bonus>({...initialBonus})
+
+watch(() => config.round, () => bonus.value.round = config.round)
 
 const columns = [
     { key: 'team', text: 'Team', sortable: false },

@@ -33,16 +33,21 @@
         </div>
         <div class="card">
             <span>Shown on overlay</span>
-            <span class="font-bold">{{ overlay.data
+            <span class="font-bold">{{ overlay.data && overlay.data.index > -1 && imports.registrations[overlay.data.index]
                 ? date(imports.registrations.at(overlay.data.index)!.imported_at)
                 : 'None'
             }}</span>
             <div class="grid grid-cols-3 gap-2">
-                <BccButton :disabled="!overlay.hasOlder" @click="overlay.previous">Previous</BccButton>
-                <BccButton :disabled="!overlay.hasNewer" @click="overlay.rescale">Rescale</BccButton>
-                <BccButton :disabled="!overlay.hasNewer" @click="overlay.next">Next</BccButton>
+                <BccButton :disabled="!imports.hasOlder" @click="overlay.previous">Previous</BccButton>
+                <BccButton :disabled="!imports.hasNewer" @click="overlay.rescale">Rescale</BccButton>
+                <BccButton :disabled="!imports.hasNewer" @click="overlay.next">Next</BccButton>
             </div>
-            
+        </div>
+        <div class="card">
+            <span>Round</span>
+            <div class="grid grid-cols-3 gap-2">
+                <BccButton v-for="i in [1,2,3]" :variant="config.round == i ? 'primary': 'secondary'" @click="config.setRound(i)">Round {{ i }}</BccButton>
+            </div>
         </div>
     </section>
 </template>
@@ -53,6 +58,7 @@ import { useTeams } from '@/composables/useTeams'
 import { useImports } from '@/store/imports'
 import { useFormat } from '@/composables/useFormat'
 import { useOverlay } from '@/store/overlay'
+import { useConfig } from '@/store/config'
 import { BccButton } from '@bcc-code/design-library-vue'
 import { computed } from 'vue'
 
@@ -66,6 +72,7 @@ const points = computed(() => ({
 }))
 const imports = useImports()
 const overlay = useOverlay()
+const config = useConfig()
 </script>
 <style scoped>
 .card {

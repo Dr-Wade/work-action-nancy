@@ -18,6 +18,7 @@ declare global {
     interface Registrations {
         member: Member
         activity: Activity
+        round?: number
     }
 
     interface Bonus {

@@ -28,8 +28,9 @@ const { pointsTotal } = usePoints()
 const overlay = useOverlay()
 const imports = useImports()
 
-const importedAt = (index: number) => index ? imports.registrations.at(index)!.imported_at : undefined
-const points = computed(() => pointsTotal(importedAt(overlay.data?.index!)))
+
+const importedAt = (index: number) => index!= null && imports.registrations.at(index) ? imports.registrations.at(index)!.imported_at : undefined
+const points = computed(() => overlay.data?.index == -1 ? { red: 0, blue: 0, orange: 0, green: 0 } : pointsTotal(importedAt(overlay.data?.index!)))
 const latestPoints = computed(() => pointsTotal(importedAt(overlay.data?.scaleIndex! - 1)))
 const nextLatestPoints = computed(() => pointsTotal(importedAt(overlay.data?.scaleIndex!)))
 
