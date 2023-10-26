@@ -19,7 +19,10 @@ export const useOverlay = defineStore('overlay', () => {
     const rescale = () => update({ scaleIndex: data.value ? data.value.index : 0 })
 
     const config = useConfig()
-    watch(() => config.round, () => update({ index: -1, scaleIndex: -1 }))
+    watch(() => config.round, (val, old) => {
+        if (old == 0) return
+        update({ index: -1, scaleIndex: -1 })
+    })
     return {
         ref,
         data,

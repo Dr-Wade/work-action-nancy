@@ -67,7 +67,7 @@ const ignoredColumns = [
     { key: 'personID', text: 'Person ID', sortable: false }
 ]
 
-const searchFields = [ 'id', 'name' ]
+const searchFields = [ 'id', 'name', 'member.name' ]
 const pageSize = 50
 
 const showModal = ref(false)

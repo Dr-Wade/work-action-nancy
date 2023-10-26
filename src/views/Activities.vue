@@ -26,6 +26,7 @@
 import TableLayout from '@/components/TableLayout.vue'
 import { useCsv } from '@/composables/useCsv'
 import { useActivities, type Activity } from '@/store/activities'
+import { useConfig } from '@/store/config'
 import { useImports } from '@/store/imports'
 import { BccButton, BccInput, BccModal, BccTable } from '@bcc-code/design-library-vue'
 import { DownloadIcon } from '@bcc-code/icons-vue'
@@ -35,6 +36,7 @@ const fileRef = ref<HTMLElement>()
 const triggerFileClick = () => { fileRef.value?.click() }
 const file = ref<File>()
 
+const config = useConfig()
 const activities = useActivities()
 const columns = [
     { key: 'id', text: 'Activity ID', sortable: false},
@@ -60,7 +62,7 @@ const imports = useImports()
 const importActivities = async () => {
     if (!parsedActivities.value) return
     await Promise.all(parsedActivities.value.map(activities.set)).then(() => {
-        imports.add({ type: 'activities' })
+        imports.add({ type: 'activities', round: config.round })
         showModal.value = false
     })
 }
