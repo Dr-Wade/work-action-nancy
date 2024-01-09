@@ -22,7 +22,8 @@ export const useImports = defineStore('imports', () => {
 
     const add = (newImport: Partial<Import>) => addDoc(ref.value, {
         imported_at: serverTimestamp(),
-        type: newImport.type
+        type: newImport.type,
+        round: newImport.round
     })
 
     const registrations = computed(() => list.value.filter((i) => i.type == 'registrations').toReversed())

@@ -5,6 +5,9 @@ import { useDocument } from "vuefire"
 
 export interface Config {
     round: number
+    campsHeight: number
+    lydiaHeight: number
+    totalHeight: number
 }
 
 export const useConfig = defineStore('config', () => {
@@ -13,10 +16,13 @@ export const useConfig = defineStore('config', () => {
 
     const round = computed(() => data.value && data.value.round || 0)
     const setRound = (round: number) => updateDoc(ref.value, { round })
+    const save = () => updateDoc(ref.value, { ...data.value })
+
     return {
         ref,
         data,
         round,
-        setRound
+        setRound,
+        save
     }
 })

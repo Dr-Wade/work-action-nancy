@@ -46,7 +46,7 @@ import {  ref, watch } from 'vue'
 const { names } = useTeams()
 const bonuses = useBonuses()
 const config = useConfig()
-const initialBonus: Bonus = { team: 'blue', points: '0', description: '', round: 0 }
+const initialBonus: Bonus = { team: 'blue', points: '0', description: '', round: config.round }
 const bonus = ref<Bonus>({...initialBonus})
 
 watch(() => config.round, () => bonus.value.round = config.round)

@@ -1,9 +1,9 @@
 <template>
     <section class="flex flex-col gap-y-5 lg:px-4">
-        <Navbar ref="navbar" solid :rounded="width >= 768" class="md:mt-2 w-full max-w-3xl mx-auto bg-neptune-600 text-primary">
+        <Navbar ref="navbar" solid :rounded="width >= 768" class="md:mt-2 w-full max-w-4xl mx-auto bg-neptune-600 text-primary">
             <template #logo>
                 <NavbarLogo link="/" alt="Work Logo" image-url="/img/logo.svg" class="relative">
-                    <span class="absolute md:left-6 left-2 -bottom-3 text-white text-xs">v1.5</span>
+                    <span class="absolute md:left-6 left-2 -bottom-3 text-white text-xs">v2.0</span>
                 </NavbarLogo>
                 <BccBadge size="sm" context="info" class="font-bold text-lg ">Round {{ config.round }}</BccBadge>
             </template>
@@ -37,7 +37,8 @@ const items = [
     { link: '/teams', name: 'Teams' },
     { link: '/activities', name: 'Activities' },
     { link: '/registrations', name: 'Registrations' },
-    { link: '/bonuses', name: 'Bonuses' }
+    { link: '/bonuses', name: 'Bonuses' },
+    { link: '/overlays', name: 'Overlays' }
 ]
 
 const navbar = ref()
