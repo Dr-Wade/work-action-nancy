@@ -52,8 +52,3 @@ const onContextMenu = (e : MouseEvent, member: Member) => {
     selectedMember.value = member
 }
 </script>
-<style>
-.bcc-form-label span {
-    color: white;
-}
-</style>

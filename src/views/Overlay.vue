@@ -6,13 +6,13 @@
                     :class="[`bg-${team}-500`, `shadow-${team}-600`, `border-${team}-400`]"
                     :style="{ height: height(team, property) + 'px' }">
                     {{ pointsFrom(team, property) }}%
-                    <div class="flex justify-center items-center mt-1 overflow-hidden">
+                    <div class="flex rounded-lg justify-center items-center mt-1 overflow-hidden">
                         <template v-if="property == 'youth'">
                             <img class="h-10 w-10 mr-1" src="/img/buk.png">
                             <span class="text-lg">+</span>
-                            <img class="h-10 w-10"  src="/img/samvirk.png">
+                            <img class="h-10 w-10"  src="/img/samvirk.png" style="filter: brightness(0) invert(1);">
                         </template>
-                        <img v-else-if="property == 'camps'" class="h-10 w-10" src="/img/camps.png" />
+                        <img v-else-if="property == 'camps'" class="h-10 w-10" src="/img/camps.png" style="filter: brightness(0) invert(1);" />
                     </div>
                 </div>
                 <span class="flex justify-center gap-x-4 items-center font-bold text-4xl drop-shadow-md shadow-white">{{ pointsTotal()[team] }}%</span>

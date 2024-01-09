@@ -8,6 +8,13 @@ export interface Config {
     campsHeight: number
     lydiaHeight: number
     totalHeight: number
+    lydia: {
+        vendorToken: string,
+        phone: string
+    }
+    crawlStart: string
+    crawlActive: boolean
+    crawlerId: string
 }
 
 export const useConfig = defineStore('config', () => {

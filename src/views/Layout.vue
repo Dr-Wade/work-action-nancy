@@ -3,7 +3,7 @@
         <Navbar ref="navbar" solid :rounded="width >= 768" class="md:mt-2 w-full max-w-4xl mx-auto bg-neptune-600 text-primary">
             <template #logo>
                 <NavbarLogo link="/" alt="Work Logo" image-url="/img/logo.svg" class="relative">
-                    <span class="absolute md:left-6 left-2 -bottom-3 text-white text-xs">v2.0</span>
+                    <span class="absolute md:left-6 left-2 -bottom-3 text-white text-xs">v2.1</span>
                 </NavbarLogo>
                 <BccBadge size="sm" context="info" class="font-bold text-lg ">Round {{ config.round }}</BccBadge>
             </template>
@@ -19,6 +19,7 @@
             </template>
         </Navbar>
         <RouterView class="w-full max-w-3xl mx-auto px-4 md:px-0" />
+        <Crawler />
     </section>
 </template>
 <script setup lang="ts">
