@@ -26,7 +26,7 @@ export const usePoints = () => {
         names.forEach((team) => {
             const numberOfU18 = statuses.list.find((d) => d.id == team)?.numberOfU18 || 0
             if ( numberOfU18 == 0) perTeam[team] = 0
-            else perTeam[team] = Math.ceil(100 * perTeam[team] / numberOfU18)
+            else perTeam[team] = Math.ceil(100 * perTeam[team] / (numberOfU18 * 2)) //TODO: We cound rounds of 2 months
         })
         return perTeam
     }
@@ -57,7 +57,7 @@ export const usePoints = () => {
     }
     
     const pointsFromCamps = () => statuses.list.reduce((acc: PointsPerTeam, status) => {
-        // NOTE : We hardcode the objective of 5000 per round. Needs to be adjusted for round 3
+        // TODO : We hardcode the objective of 5000 per round. Needs to be adjusted for round 3
         acc[status.id as Team] += Math.ceil(100 * Number(status.camps) / 5000)
         return acc
     }, { ...initialPoints })

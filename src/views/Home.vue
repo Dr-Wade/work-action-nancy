@@ -5,16 +5,20 @@
             :class="`bg-${team}-500`" class="text-gray-200 p-4 rounded flex flex-col gap-y-2">
             <h3 class="relative text-xl text-center uppercase border-b pb-5 mb-3">{{ team }}</h3>
             <div class="flex justify-between text-sm">
-                <span>Registrations:</span>
-                <span>{{ points.registrations[team] }}</span>
+                <span>Youth:</span>
+                <span>{{ points.youth[team] }}%</span>
+            </div>
+            <div class="flex justify-between text-sm">
+                <span>Camps:</span>
+                <span>{{ points.camps[team] }}%</span>
             </div>
             <div class="flex justify-between text-sm">
                 <span>Bonuses:</span>
                 <span>{{ points.bonuses[team] }}</span>
             </div>
             <div class="flex justify-between font-bold text-lg">
-                <span>Total points:</span>
-                <span>{{ points.total[team] }}</span>
+                <span>Total:</span>
+                <span>{{ points.total[team] }}%</span>
             </div>
         </div>
         <div class="card">
@@ -64,9 +68,10 @@ import { computed } from 'vue'
 
 const { date } = useFormat()
 const { names } = useTeams()
-const { pointsTotal, pointsFromBonuses, pointsFromRegistrations } = usePoints()
+const { pointsTotal, pointsFromBonuses, pointsFromCamps, pointsFromYouth } = usePoints()
 const points = computed(() => ({
-    registrations: pointsFromRegistrations(),
+    youth: pointsFromYouth(),
+    camps: pointsFromCamps(),
     bonuses: pointsFromBonuses(),
     total: pointsTotal()
 }))
