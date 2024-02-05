@@ -47,8 +47,9 @@ export const useCrawler = defineStore('crawler', () => {
         const json = await response.json()
         const { transactions } = json
         const newStatuses = transactions.reduce((acc: any, c: any) => {
-            const team = c.receiver_description.split(' - ')[0].split(' ')[1].toLowerCase()
-            acc[team] += Number(c.amount)
+            const team = c.receiver_description.split(' - ')[0].split(' ')[1]
+            if (!team) return acc
+            acc[team.toLowerCase()] += Number(c.amount)
             return acc
         }, { red: 0, blue: 0, green: 0, orange: 0 })
         lastSync.value = formattedDate
