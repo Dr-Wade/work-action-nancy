@@ -8,30 +8,23 @@
             <li v-for="member in orderedList"
                 :key="member.personID"
                 @contextmenu.prevent="(e) => onContextMenu(e, member)"
-                class="py-1 flex justify-between cursor-pointer no-select">
+                class="py-1 flex justify-between">
                 <span>{{ member.name }}</span>
-                <span>{{ member.age }}</span>
+                <span class="ml-3">{{ pointsFrom(member.personID) }}</span>
             </li>
             <span v-if="!list || list.length == 0">No members yet</span>
         </ul>
-        <context-menu
-            v-model:show="show"
-            :options="options"
-            >
-            <context-menu-item v-for="team in names.filter((t) => t != selectedMember?.team)"
-                :key="team"
-                :label="'Move to ' + team"
-                @click="members.setTeam(selectedMember!.personID, team)" />
-        </context-menu>
     </div>
 </template>
 <script setup lang="ts">
 import { useTeams, type Team } from '@/composables/useTeams'
 import { useMembers, type Member } from '@/store/members'
+import { useRegistrations } from '@/store/registrations';
 import { computed, ref } from 'vue'
 
 const props = defineProps<{ team: Team }>()
-
+const registrations = useRegistrations()
+const pointsFrom = (id: string) => registrations.list.reduce((acc, r) => r.member.personID == id ? acc + r.activity.points : acc, 0)
 const { teams, names } = useTeams()
 const list = computed(() => teams.value[props.team])
 const orderedList = computed(() => list.value?.sort((a,b) => a.age - b.age))

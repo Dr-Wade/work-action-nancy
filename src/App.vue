@@ -33,12 +33,12 @@ const { isAuthenticated } = useAuth(auth)
 
 const route = useRoute()
 const isOverlay = computed(() => route.path.startsWith('/overlay'))
-const { serviceAccountEmail } = useServiceAccount()
+const { teamLeaderEmail } = useServiceAccount()
 
 const loaded = ref(false)
 
 onMounted(async () => {
-    if (route.query.pass) await signInWithEmailAndPassword(auth, serviceAccountEmail, route.query.pass.toString()).then(() => loaded.value = true)
+    if (route.query.pass) await signInWithEmailAndPassword(auth, teamLeaderEmail, route.query.pass.toString()).then(() => loaded.value = true)
     else await auth.authStateReady().then(() => loaded.value = true) 
 })
 </script>

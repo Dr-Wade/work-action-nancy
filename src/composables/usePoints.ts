@@ -57,8 +57,7 @@ export const usePoints = () => {
     }
     
     const pointsFromCamps = () => statuses.list.reduce((acc: PointsPerTeam, status) => {
-        // TODO : We hardcode the objective of 5000 per round. Needs to be adjusted for round 3
-        acc[status.id as Team] += Math.ceil(100 * Number(status.camps) / 5000)
+        acc[status.id as Team] += Math.ceil(100 * (Number(status.camps) + Number(status.lydia)) / 5000)
         return acc
     }, { ...initialPoints })
 

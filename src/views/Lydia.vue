@@ -6,8 +6,8 @@
                 <div class="relative w-full rounded transition-all duration-[1500ms] shrink-0" :style="{ height: BASE_HEIGHT + 'px' }">
                     <div class="absolute bottom-0 w-full shadow-lg rounded transition-all duration-[1500ms] shrink-0"
                         :class="[`bg-${team.id}-500`, `shadow-${team.id}-600`, `border-${team.id}-400`]"
-                        :style="{ height: (Number(team.lydia)/5000) * BASE_HEIGHT + 'px' }">
-                        <div class="absolute inset-x-0 -top-12 text-center text-3xl font-bold">{{ team.lydia }}€</div>
+                        :style="{ height: (Number(team.lydiaTemp)/5000) * BASE_HEIGHT + 'px' }">
+                        <div class="absolute inset-x-0 -top-12 text-center text-3xl font-bold">{{ team.lydiaTemp }}€</div>
                     </div>
                 </div>
                 <img class="mt-5 w-24 h-24" :src="'/img/'+ team.id + '.svg'">

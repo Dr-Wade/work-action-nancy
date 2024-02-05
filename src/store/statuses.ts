@@ -8,6 +8,7 @@ export interface Status {
     samvirk: string
     camps: string
     lydia: string
+    lydiaTemp: string
     numberOfU18: number
     numberOfBUK: number
     numberOfSamvirk: number

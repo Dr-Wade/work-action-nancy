@@ -6,10 +6,12 @@
                 <span class="uppercase  border-b text-xl text-center">{{ team.id }}</span>
                 <BccInput class="percent" v-model="team.buk" label="BUK" />
                 <BccInput class="percent" v-model="team.samvirk" label="Samvirk" />
-                <BccInput class="euro" v-model="team.camps" label="Camps" />
-                <BccInput class="euro" v-model="team.lydia" label="Soirée Lydia" />
+                <BccInput class="euro" v-model="team.camps" label="Don Camps" />
+                <BccInput class="euro" v-model="team.lydia" label="Cagnotte Lydia" />
+                <BccInput class="euro" v-model="team.lydiaTemp" label="Soirée Lydia" />
             </div>
             <BccButton @click="statuses.save().then(success)">Save</BccButton>
+            <BccButton @click="updateLydia">Update Lydia</BccButton>
             <BccAlert class="fixed bottom-5 right-5" icon closeButton context="success" :open="showSuccess" @close="showSuccess = false" title="Changes saved!" />
         </div>
         <h2 class="font-bold text-xl">Crawl</h2>
@@ -33,7 +35,6 @@
             <TeamList v-for="team in names" :key="team" v-bind="{ team }" />
         </div>
     </section>
-    
 </template>
 
 <script setup lang="ts">
@@ -75,6 +76,11 @@ const stop = async () => {
     crawler.runningTime = '00:00:00'
     crawler.runningSince = null
     await config.save()
+}
+
+const updateLydia = async () => {
+    if (!config.startDate) return
+    await crawler.crawl(config.startDate + ' 00:00:00')
 }
 </script>
 <style>

@@ -26,15 +26,17 @@ export const useCrawler = defineStore('crawler', () => {
 
     const config = useConfig()
     const statuses = useStatuses()
-    const crawl = async () => {
+    const crawl = async (startDate?: string) => {
         if (!config.data) return
         if (!config.data.lydia) return
-        if (!config.data.crawlActive) return
-        if (config.data.crawlerId != id) return
+        if (!startDate) {
+            if (!config.data.crawlActive) return
+            if (config.data.crawlerId != id) return
+        }
         const formData = new FormData();
         formData.append('vendor_token', config.data.lydia.vendorToken)
         formData.append('phone', config.data.lydia.phone)
-        formData.append('startDate', config.data.crawlStart)
+        formData.append('startDate', startDate || config.data.crawlStart)
         const date = new Date()
         const formattedDate = [date.toISOString().slice(0,10), date.toLocaleTimeString()].join(' ')
         formData.append('endDate', formattedDate)
@@ -50,7 +52,7 @@ export const useCrawler = defineStore('crawler', () => {
             return acc
         }, { red: 0, blue: 0, green: 0, orange: 0 })
         lastSync.value = formattedDate
-        await Promise.all(Object.keys(newStatuses).map((team) => statuses.setStatus(team, { lydia: newStatuses[team] })))
+        await Promise.all(Object.keys(newStatuses).map((team) => statuses.setStatus(team, { [startDate ? 'lydia' : 'lydiaTemp']: newStatuses[team] })))
     }
 
     const crawlInterval = useIntervalFn(crawl, 10000, { immediate: false })
@@ -69,6 +71,7 @@ export const useCrawler = defineStore('crawler', () => {
         id,
         lastSync,
         runningSince,
-        runningTime
+        runningTime,
+        crawl
     }
 })

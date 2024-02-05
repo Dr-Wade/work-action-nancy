@@ -22,6 +22,19 @@ export const useConfig = defineStore('config', () => {
     const data = useDocument<Config>(ref)
 
     const round = computed(() => data.value && data.value.round || 0)
+    const startDate = computed(() => {
+        switch (round.value) {
+            case 1:
+                return '2024-01-01';
+            case 2:
+                return '2024-03-11';
+            case 3:
+                return '2024-05-20'
+            default:
+                return null
+        }
+    })
+
     const setRound = (round: number) => updateDoc(ref.value, { round })
     const save = () => updateDoc(ref.value, { ...data.value })
 
@@ -29,6 +42,7 @@ export const useConfig = defineStore('config', () => {
         ref,
         data,
         round,
+        startDate,
         setRound,
         save
     }
