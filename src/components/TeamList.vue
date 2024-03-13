@@ -18,17 +18,16 @@
 </template>
 <script setup lang="ts">
 import { useTeams, type Team } from '@/composables/useTeams'
-import { useMembers, type Member } from '@/store/members'
+import { type Member } from '@/store/members'
 import { useRegistrations } from '@/store/registrations';
 import { computed, ref } from 'vue'
 
 const props = defineProps<{ team: Team }>()
 const registrations = useRegistrations()
 const pointsFrom = (id: string) => registrations.list.reduce((acc, r) => r.member.personID == id ? acc + r.activity.points : acc, 0)
-const { teams, names } = useTeams()
+const { teams } = useTeams()
 const list = computed(() => teams.value[props.team])
 const orderedList = computed(() => list.value?.sort((a,b) => a.age - b.age))
-const members = useMembers()
 const selectedMember = ref<Member>()
 const show = ref(false)
 const options = ref({

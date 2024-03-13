@@ -3,6 +3,7 @@
         <h3 class="font-bold mb-5">Overlays</h3>
         <div class="grid grid-cols-4 gap-3">
             <BccButton @click="goToOverlay('overview')">Overview</BccButton>
+            <BccButton @click="goToOverlay('youth')">Youth</BccButton>
             <BccButton @click="goToOverlay('camps')">Camps U18</BccButton>
             <BccButton @click="goToOverlay('lydia')">Soirée Lydia</BccButton>
             <div></div>

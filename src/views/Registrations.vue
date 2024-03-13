@@ -105,7 +105,7 @@ watch(file, async () => {
         let member = members.fromId(r['Person ID'])
         let activity = activities.fromId(r['Activity ID'])
         let age = r['Age']
-        if (!member || !activity || age >= 18) ignoredRegistrations.value.push({ name: r['Name'], activityID: r['Activity ID'], personID: r['Person ID'] })
+        if (!member || !activity || age >= 18 || age <= 13) ignoredRegistrations.value.push({ name: r['Name'], activityID: r['Activity ID'], personID: r['Person ID'] })
         else parsedRegistrations.value.push({ id: [activity.id, member.id].join('-'), member, activity })
     })
 })

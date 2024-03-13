@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { computed, ref, watch } from "vue"
+import { ref, watch } from "vue"
 import { useConfig } from './config'
 import { useIntervalFn } from '@vueuse/core'
 import { useStatuses } from "./statuses"
