@@ -4,7 +4,7 @@
         <div class="grid grid-cols-4 gap-3">
             <BccButton @click="goToOverlay('overview')">Overview</BccButton>
             <BccButton @click="goToOverlay('youth')">Youth</BccButton>
-            <BccButton @click="goToOverlay('camps')">Camps U18</BccButton>
+            <BccButton @click="goToOverlay('u18')">U18</BccButton>
             <BccButton @click="goToOverlay('lydia')">Soirée Lydia</BccButton>
             <div></div>
             <template v-if="config.data">

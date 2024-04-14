@@ -9,6 +9,7 @@ const router = createRouter({
     { path: '/overlay/overview', name: 'overlay', component: () => import('../views/Overlay.vue') },
     { path: '/overlay/youth', name: 'youth', component: () => import('../views/YouthOnly.vue') },
     { path: '/overlay/zero', name: 'zero', component: () => import('../views/Zero.vue')},
+    { path: '/overlay/u18', name: 'u18', component: () => import('../views/U18Overlay.vue' )},
     { path: '/overlay/team/:team', name: 'team', component: () => import('../views/TeamOverlay.vue') },
     { path: '/', component: Layout, children: [
       { path: '/', name: 'home', component: () => import('../views/Home.vue') },
