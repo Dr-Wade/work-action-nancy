@@ -17,12 +17,14 @@ export const usePoints = () => {
     const statuses = useStatuses()
     const teamConfigs = useTeamConfigs()
     
+    const marteaux = () => registrations.list.reduce((acc: PointsPerTeam, registration) => {
+        let team = registration.member.team
+        if (team) acc[team] += registration.activity.points
+        return acc
+    }, { ...initialPoints })
+    
     const pointsFromRegistrations = () => {
-        const perTeam: PointsPerTeam = registrations.list.reduce((acc: PointsPerTeam, registration) => {
-            let team = registration.member.team
-            if (team) acc[team] += registration.activity.points
-            return acc
-        }, { ...initialPoints })
+        const perTeam = marteaux()
         names.forEach((team) => {
             const numberOfU18 = teamConfigs.list.find((d) => d.id == team)?.numberOfU18 || 0
             if ( numberOfU18 == 0) perTeam[team] = 0
@@ -73,6 +75,7 @@ export const usePoints = () => {
     }
     
     return {
+        marteaux,
         pointsFromRegistrations,
         pointsFromBonuses,
         pointsTotal,

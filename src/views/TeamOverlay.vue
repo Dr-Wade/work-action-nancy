@@ -38,7 +38,7 @@ const pointsFrom = (property: Property) => {
         case 'u18':
             return pointsFromRegistrations()[team.value]
         case 'camps':
-            return status.value ? Number(status.value.camps) + Number(status.value.lydia) : 0
+            return Math.round((status.value ? Number(status.value.camps) + Number(status.value.lydia) : 0) * 100) / 100
         default:
             return Number(status.value && status.value[property] || 0)
     }
